@@ -22,10 +22,10 @@ class SgStrangeCalendar
   private
   def generate_horizontal
     @display_horizontal ||= @calendar.map.with_index do |days, i|
-      month = MONTHNAMES[i].ljust(4, " ")
+      month = MONTHNAMES[i].ljust(5, " ")
       days.each_with_object([month]) do |day, acc|
-        acc << (day ? sprintf("%2d", day) : "  ")
-      end.join(" ") << " "
+        acc << day.to_s.center(3)
+      end.join
     end.tap do |result|
       next unless @today&.year == @year
       result[@today.month - 1].sub!(sprintf("%2d", @today.day).center(4), "[#{@today.day}]".rjust(4))
